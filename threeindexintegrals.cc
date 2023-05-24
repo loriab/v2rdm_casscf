@@ -30,7 +30,8 @@
 #include <psi4/libpsi4util/process.h>
 #include <psi4/libmints/basisset.h>
 #include <psi4/libpsio/psio.hpp>
-#include <psi4/libmints/sieve.h>
+#include <psi4/libmints/integral.h>
+#include <psi4/libmints/twobody.h>
 #include <psi4/psifiles.h>
 #include <psi4/libtrans/integraltransform.h>
 
@@ -47,7 +48,8 @@ void v2RDMSolver::ThreeIndexIntegrals() {
     basisset_ = reference_wavefunction_->basisset();
 
     // get ntri from sieve
-    std::shared_ptr<ERISieve> sieve (new ERISieve(basisset_, options_.get_double("INTS_TOLERANCE")));
+    auto factory = std::make_shared<IntegralFactory>(basisset_, basisset_, basisset_, basisset_);
+    auto sieve = std::shared_ptr<TwoBodyAOInt>(factory->eri());
     const std::vector<std::pair<int, int> >& function_pairs = sieve->function_pairs();
     long int ntri = function_pairs.size();
 
