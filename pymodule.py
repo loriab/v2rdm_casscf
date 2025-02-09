@@ -50,6 +50,8 @@ def run_v2rdm_casscf(name, **kwargs):
     optstash = p4util.OptionsState(
         ['SCF', 'DF_INTS_IO'])
 
+    if psi4.core.get_option('SCF', 'SCF_TYPE') == "DF":
+        psi4.core.set_global_option("SCF_TYPE", "DISK_DF")
     psi4.core.set_local_option('SCF', 'DF_INTS_IO', 'SAVE')
 
     # Your plugin's psi4 run sequence goes here
