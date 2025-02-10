@@ -50,7 +50,7 @@ def run_v2rdm_casscf(name, **kwargs):
     optstash = p4util.OptionsState(
         ['SCF', 'DF_INTS_IO'])
 
-    if psi4.core.get_option('SCF', 'SCF_TYPE') == "DF":
+    psi4.core.get_global_ption('SCF_TYPE') == "DF":
         psi4.core.set_global_option("SCF_TYPE", "DISK_DF")
     psi4.core.set_local_option('SCF', 'DF_INTS_IO', 'SAVE')
 
@@ -64,9 +64,9 @@ def run_v2rdm_casscf(name, **kwargs):
     filename = psi4.core.get_option("V2RDM_CASSCF","RESTART_FROM_CHECKPOINT_FILE")
 
     # Ensure IWL files have been written when not using DF/CD
-    scf_type = psi4.core.get_option('SCF', 'SCF_TYPE')
-    if ( scf_type == 'PK' or scf_type == 'DIRECT' ):
-        proc_util.check_iwl_file_from_scf_type(psi4.core.get_option('SCF', 'SCF_TYPE'), ref_wfn)
+    scf_type = psi4.core.get_global_option('SCF_TYPE')
+    if scf_type in ["DISK_DK", 'PK', 'DIRECT']:
+        proc_util.check_iwl_file_from_scf_type(scf_type), ref_wfn)
 
     # reorder wavefuntions based on user input
     # apply a list of 2x2 rotation matrices to the orbitals in the form of [irrep, orbital1, orbital2, theta]
