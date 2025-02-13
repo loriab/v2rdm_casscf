@@ -51,7 +51,9 @@ def run_v2rdm_casscf(name, **kwargs):
         ['SCF', 'DF_INTS_IO'],
         ["SCF_TYPE"])
 
+    scftype_tweaked = False
     if psi4.core.get_global_option('SCF_TYPE') == "DF":
+        scftype_tweaked = True
         psi4.core.set_global_option("SCF_TYPE", "DISK_DF")
     psi4.core.set_local_option('SCF', 'DF_INTS_IO', 'SAVE')
 
@@ -68,6 +70,12 @@ def run_v2rdm_casscf(name, **kwargs):
     scf_type = psi4.core.get_global_option('SCF_TYPE')
     if scf_type in ["DISK_DF", 'PK', 'DIRECT']:
         proc_util.check_iwl_file_from_scf_type(scf_type, ref_wfn)
+
+    # Upon making DF_INTS_IO *not* force DISK_DF (PR 3256), that broke integral file handling (fixed by adding
+    #    DISK_DF to check_iwl above) and then the v2rdm primal value. The SCF jk object seems to be set up right
+    #    so hacking the SCF_TYPE back to DF below to fix the numerical (2e-4) error.
+    if scftype_tweaked:
+        psi4.core.set_global_option("SCF_TYPE", "DF")
 
     # reorder wavefuntions based on user input
     # apply a list of 2x2 rotation matrices to the orbitals in the form of [irrep, orbital1, orbital2, theta]
