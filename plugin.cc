@@ -159,12 +159,13 @@ int read_options(std::string name, Options& options)
         /*- Do write a MOLDEN output file?  If so, the filename will end in
         .molden, and the prefix is determined by |globals__writer_file_label|
         (if set), or else by the name of the output file plus the name of
-        the current molecule. -*/
+        the current molecule. As of April 2025, true is no longer operable. -*/
         options.add_bool("MOLDEN_WRITE", false);
         /*- Do write a MOLDEN file for guess orbitals?  If so, the filename will
         end in .guess.molden, and the prefix is determined by 
         |globals__writer_file_label| (if set), or else by the name of the output
-        file plus the name of the current molecule. -*/
+        file plus the name of the current molecule. 
+	As of April 2025, true is no longer operable. -*/
         options.add_bool("GUESS_ORBITALS_WRITE", false);
         /*- Do write a ORBOPT output file?  If so, the filename will end in
         .molden, and the prefix is determined by |globals__writer_file_label|
