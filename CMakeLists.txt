@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.15...4.0)
 cmake_policy(SET CMP0048 NEW)  # project_VERSION* variables populated from project(... VERSION x.x.x) string
+if (POLICY CMP0167)
+    cmake_policy(SET CMP0167 OLD)
+endif ()
+
 project(v2rdm_casscf
         VERSION 0.9
         LANGUAGES CXX Fortran)
