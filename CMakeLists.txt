@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.15...4.0)
 cmake_policy(SET CMP0048 NEW)  # project_VERSION* variables populated from project(... VERSION x.x.x) string
 project(v2rdm_casscf
         VERSION 0.9
@@ -7,7 +8,6 @@ set(v2rdm_casscf_DESCRIPTION  "Variational 2-RDM-driven CASSCF plugin to Psi4")
 set(v2rdm_casscf_URL          "github.com/edeprince3/v2rdm_casscf")
 set(v2rdm_casscf_LICENSE      "GPL 2+")
 
-cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 # <<<  Options  >>>
