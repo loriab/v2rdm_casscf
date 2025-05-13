@@ -31,6 +31,7 @@ option_with_print(ENABLE_OPENMP "Enable threadsafe linking to OpenMP parallelize
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 set(TargetOpenMP_FIND_COMPONENTS "CXX Fortran")
 find_package(psi4 1.0 REQUIRED)
 
